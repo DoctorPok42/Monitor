@@ -1,0 +1,32 @@
+.header {
+  margin: 10px 125px;
+  width: 55rem;
+  padding: 10px 0;
+  position: relative;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 12px 3%;
+    color: #ccc;
+  }
+
+  .time {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px 14px;
+    background-color: #161f28;
+    border-radius: 5px;
+    color: #67767f;
+    font-size: 1.1rem;
+    font-weight: 1;
+
+    input::-webkit-clear-button {
+    display: none;
+}
+  }
+}

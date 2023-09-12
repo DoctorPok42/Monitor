@@ -1,0 +1,14 @@
+.graduation {
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+
+    .graduationItem {
+        width: .3rem;
+        height: .8rem;
+        background-color: #11141a;
+        margin-right: .15rem;
+    }
+}

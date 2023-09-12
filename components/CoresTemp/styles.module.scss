@@ -1,0 +1,35 @@
+.coresTempContainer {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    border-top: 1px solid #2b3540;
+
+    .coresTemp {
+        height: 2rem;
+        display: flex;
+        justify-content: flex-start;
+
+        .dot {
+            width: .5rem;
+            height: .55rem;
+            border-radius: 50%;
+        }
+
+        h1, h2 {
+            width: auto;
+            margin: auto .3rem;
+            margin-bottom: .1rem;
+            font-size: 1rem;
+            color: #66757e;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: #fff;
+            font-weight: 1;
+            margin-right: 2rem;
+        }
+    }
+}

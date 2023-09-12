@@ -1,0 +1,21 @@
+.sideBar {
+  background-color: #161f28;
+  height: 100%;
+  width: 6rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+  box-shadow: 0 0 10px 0 rgba(38, 45, 71, 0.5);
+
+  .content {
+    width: 100%;
+    margin-top: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+}
