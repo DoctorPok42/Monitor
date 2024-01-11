@@ -1,5 +1,5 @@
 import router from "next/router";
-import { Button, Header } from "../components";
+import { Button } from "../components";
 import {
   faMicrochip,
   faServer,
@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {
-
   const handleOnClick = (args: string) => {
     router.push(args);
   }

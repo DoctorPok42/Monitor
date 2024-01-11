@@ -106,9 +106,9 @@ export const Home = () => {
 
       <div className="StorageBar">
       {
-        fileData && fileData.map((data: any) => {
+        fileData && fileData.map((data: any, index: number) => {
           return (
-            <Bar title={data.name} data={data.used} use={data.use} maxValue={data.size} />
+            <Bar key={index} title={data.name} data={data.used} use={data.use} maxValue={data.size} />
           )
         })
       }
