@@ -3,7 +3,7 @@ import { SideBar, RadialBar, CoresTemp, Column, Area, Header, Pie } from "../com
 import { io } from "socket.io-client";
 import dotenv from 'dotenv';
 
-export const Home = ({ SERVER_URL, SERVER_PORT }: any) => {
+export const Home = ({ SERVER_URL }: any) => {
   const [connected, setConnected] = useState<boolean>(false);
   const [bidData, setBidData] = useState<any>([]);
   const [cpuState, setCpuState] = useState<any>({
@@ -43,7 +43,7 @@ export const Home = ({ SERVER_URL, SERVER_PORT }: any) => {
 
   const connectToSocket = () => {
     if (connected) return;
-    const socket = io(`${SERVER_URL}:${SERVER_PORT}`, { transports: ["websocket"] });
+    const socket = io(`${SERVER_URL}`, { transports: ["websocket"] });
 
     socket.on("connect", () => {
       console.log("Connected to server!");
@@ -156,7 +156,6 @@ export async function getServerSideProps() {
   return {
     props: {
       SERVER_URL: process.env.SERVER_URL,
-      SERVER_PORT: process.env.SERVER_PORT
     }
   };
 }

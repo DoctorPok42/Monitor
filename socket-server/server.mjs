@@ -34,6 +34,7 @@ io.on('connect', (socket) => {
   });
 
   setInterval(async () => {
+    // if (usersLength > 1) return;
     const cache = await getCaches();
     const temps = await si.cpuTemperature();
     const speed = await si.cpuCurrentSpeed();
@@ -43,7 +44,7 @@ io.on('connect', (socket) => {
     socket.emit('getCPUStates', { cache, temps, speed, cpu, load });
 
     console.log(new Date().toLocaleString(), 'Sending data to client');
-  }, 5000);
+  }, 1000);
 });
 
 httpServer.listen(process.env.SERVER_PORT, () => {

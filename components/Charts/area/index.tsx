@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import styles from "./area.module.css";
 
 interface AreaProps {
     title: string;
@@ -21,10 +20,10 @@ const Area = ({ title, titleColor = "#fff", colorData, data }: AreaProps) => {
                 }
             },
             toolbar: {
-                show: false
+                show: true,
             },
             zoom: {
-                enabled: false
+                enabled: true,
             }
         },
         title: {
