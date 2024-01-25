@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Header, Pie, SideBar } from "../components";
 import { getProcess } from "../utils/functions";
 
-export const Home = () => {
+export const Circle = () => {
   const [newDate, setNewDate] = useState<string>(new Date().toLocaleDateString("fr-FR", {
       day: "numeric",
       month: "numeric",
@@ -45,4 +45,4 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export default Circle;

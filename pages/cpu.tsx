@@ -3,7 +3,7 @@ import { SideBar, RadialBar, CoresTemp, Column, Area, Header, Pie } from "../com
 import { io } from "socket.io-client";
 import dotenv from 'dotenv';
 
-export const Home = ({ SERVER_URL }: any) => {
+export const Cpu = ({ SERVER_URL }: any) => {
   const [connected, setConnected] = useState<boolean>(false);
   const [bidData, setBidData] = useState<any>([]);
   const [cpuState, setCpuState] = useState<any>({
@@ -54,9 +54,13 @@ export const Home = ({ SERVER_URL }: any) => {
       console.log("Disconnected from server!");
     });
 
+    setInterval(async () => {
+      socket.emit("getCPUStates");
+    }, 1000);
+
     socket.on("getCPUStates", (data: any) => {
-      const value = Object.values(data.cache[0]);
-      const time = Object.keys(data.cache[0]);
+      const value = Object.values(data.cache);
+      const time = Object.keys(data.cache);
       setCache({
         value,
         time
@@ -66,7 +70,7 @@ export const Home = ({ SERVER_URL }: any) => {
       const speed = data.cpu.speed;
       let newTime = new Date().toLocaleTimeString();
       newTime = newTime.split(":")[0] + "h" + newTime.split(":")[1] + ":" + newTime.split(":")[2].split(" ")[0];
-      setBidData((prev: any) => [...prev, { speed, time }]);
+      setBidData((prev: any) => [...prev, { speed, time: newTime }]);
 
       setProcess([{
           value: parseFloat(data.load.currentLoadUser.toFixed(2)),
@@ -160,4 +164,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Home;
+export default Cpu;
