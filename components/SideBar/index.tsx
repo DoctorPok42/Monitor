@@ -3,6 +3,7 @@ import {
   faServer,
   faChartSimple,
   faCircleHalfStroke,
+  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./style.module.scss";
@@ -17,15 +18,17 @@ const SideBar = ({ path }: SideBarProps) => {
   const list = [
     "/cpu",
     "/server",
-    "/chart",
+    // "/chart",
     "/circle",
+    "/settings"
   ]
 
   const iconList = [
     faMicrochip,
     faServer,
-    faChartSimple,
+    // faChartSimple,
     faCircleHalfStroke,
+    faGear,
   ]
 
   const handleOnClick = (args: string) => {

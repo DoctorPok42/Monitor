@@ -7,8 +7,8 @@ import styles from './styles.module.scss';
 
 interface HeadersProps {
     title: string;
-    newDate: string;
-    setNewDate: (actualDate: string) => void;
+    newDate?: string;
+    setNewDate?: (actualDate: string) => void;
 }
 
 const Header = ({ title, newDate, setNewDate }: HeadersProps) => {
@@ -22,7 +22,7 @@ const Header = ({ title, newDate, setNewDate }: HeadersProps) => {
         const date = new Date(e.target.value);
         date.setDate(date.getDate() + 1);
 
-        setNewDate(date.toLocaleDateString("fr-FR", {
+        setNewDate && setNewDate(date.toLocaleDateString("fr-FR", {
             day: "numeric",
             month: "numeric",
             year: "numeric"
@@ -32,7 +32,7 @@ const Header = ({ title, newDate, setNewDate }: HeadersProps) => {
     return (
         <div className={styles.header}>
             <h2>{title}</h2>
-            <div className={styles.time}>
+            {newDate && <div className={styles.time}>
                 <FontAwesomeIcon
                     style={{
                         marginRight: "0.5rem"
@@ -67,7 +67,7 @@ const Header = ({ title, newDate, setNewDate }: HeadersProps) => {
                         width: "1.2rem"
                     }}
                 />
-            </div>
+            </div>}
         </div>
     );
 }
