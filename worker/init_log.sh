@@ -9,28 +9,30 @@ fi
 # Check if python3 is installed
 if ! [ -x "$(command -v python3)" ]; then
   echo 'Error: python is not installed.' >&2
-  echo "Installing python and pip"
+  echo "Installing python3 and pip"
   sudo apt install python3
   sudo apt install python3-pip
   echo "Done"
   exit 1
 fi
 
-# Create Folder and file
-echo "Creating folder and file"
-sudo mkdir /var/log/worker && sudo touch /var/log/worker/requirements.txt
+# Create Folder
+echo "Creating folder"
+sudo mkdir /var/log/worker
 echo "Done"
 
 # Copy files to the folder
 echo "Copying files to the folder"
-sudo cp ../worker/main.py /var/log/worker/main.py
-sudo cp ../worker/requirements.txt /var/log/worker/requirements.txt
-sudo cp ../worker/conf.json /var/log/worker/conf.json
+sudo cp ./main.py /var/log/worker/main.py
+sudo cp ./requirements.txt /var/log/worker/requirements.txt
+sudo cp ./conf.json /var/log/worker/conf.json
 echo "Done"
 
 # Install dependencies
 echo "Installing dependencies"
+cd /var/log/worker/
 pip3 install -r /var/log/worker/requirements.txt
+cd ~
 echo "Done"
 
 # Check if cron is installed
@@ -66,3 +68,7 @@ else
 fi
 
 echo "Installation complete"
+
+echo "You can check the logs at /var/log/worker/log_worker.json"
+echo "You can check the cron logs at /var/log/worker/log.log"
+echo "You can check the errors at /var/log/worker/error_worker.json"
