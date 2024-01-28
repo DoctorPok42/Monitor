@@ -5,8 +5,8 @@ from datetime import datetime
 from psutil import cpu_percent, virtual_memory, disk_usage, net_connections
 
 
-if not path.exists("./log_worker.json"):
-    with open("./log_worker.json", "w", encoding="utf-8") as f:
+if not path.exists("/var/log/worker/log_worker.json"):
+    with open("/var/log/worker/log_worker.json", "w", encoding="utf-8") as f:
         dump({}, f)
 
 
@@ -38,8 +38,9 @@ def get_network_usage():
     """
     Get network usage (ports)
     """
-    with open("./conf.json", "r", encoding="utf-8") as file:
-        conf = load(file)
+
+    with open("/var/log/worker/conf.json", "r", encoding="utf-8") as conf_file:
+        conf = load(conf_file)
     ports = conf["portsSlots"]
     network = []
     useds_ports = net_connections()
@@ -76,10 +77,6 @@ class Process:
         )
 
     def get_stats(self):
-        """
-        Get stats
-        """
-
         return {
             "cpu": self.cpu,
             "memory": self.memory,
@@ -96,15 +93,13 @@ def write_log():
     Write log in ./log_worker.json
     """
 
-    with open("./log_worker.json", "r", encoding="utf-8") as file:
-        log = load(file)
+    with open("/var/log/worker/log_worker.json", "r", encoding="utf-8") as load_file:
+        log = load(load_file)
 
-    log.update(
-        {datetime.now().strftime("%Y-%m-%d %H:%M:%S"): process.get_stats()}
-    )
+    log.update({datetime.now().strftime("%Y-%m-%d %H:%M:%S"): process.get_stats()})
 
-    with open("./log_worker.json", "w", encoding="utf-8") as upload_file:
-        dump(log, upload_file)
+    with open("/var/log/worker/log_worker.json", "w", encoding="utf-8") as write_file:
+        dump(log, write_file)
 
 
 def main():
@@ -112,9 +107,9 @@ def main():
     Main function
     """
 
-    print(f"{datetime.now()}: INFO Starting worker...")
+    print(f"{datetime.now()} - [INFO] Starting worker...")
     write_log()
-    print(f"{datetime.now()}: INFO Data written in ./log_worker.json")
+    print(f"{datetime.now()} - [INFO] Data written in /var/log/worker/log_worker.json")
 
 
 if __name__ == "__main__":
