@@ -16,14 +16,17 @@ if ! [ -x "$(command -v python3)" ]; then
   exit 1
 fi
 
-# Create Folder
+# Create Folders
 echo "Creating folder"
 sudo mkdir /var/log/worker
+sudo mkdir /var/log/worker/save
+sudo mkdir /var/log/worker/save/last-hour
 echo "Done"
 
 # Copy files to the folder
 echo "Copying files to the folder"
 sudo cp ./main.py /var/log/worker/main.py
+sudo cp ./tidy_file.py /var/log/worker/tidy_file.py
 sudo cp ./requirements.txt /var/log/worker/requirements.txt
 sudo cp ./conf.json /var/log/worker/conf.json
 echo "Done"
@@ -61,6 +64,7 @@ else
   echo "Creating cron task"
   crontab -l > mycron
   echo "* * * * * python3 /var/log/worker/main.py >> /var/log/worker/log.log 2>/var/log/worker/error.log" >> mycron
+  echo "59 * * * * python3 /var/log/worker/tidy_file.py >> /var/log/worker/log.log 2>/var/log/worker/error.log" >> mycron
   crontab mycron
   rm mycron
   crontab -l
@@ -72,3 +76,6 @@ echo "Installation complete"
 echo "You can check the logs at /var/log/worker/log_worker.json"
 echo "You can check the cron logs at /var/log/worker/log.log"
 echo "You can check the errors at /var/log/worker/error_worker.json"
+echo "You can check the last hour logs at /var/log/worker/save/last-hour"
+
+echo "You can change the configuration at /var/log/worker/conf.json"
