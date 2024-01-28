@@ -1,16 +1,25 @@
+"""
+Tidy file, move files to another directory and clean file
+"""
+
 from json import load, dump
-from os import path, mkdir
+from os import path, mkdir, listdir, remove, rename
 from datetime import datetime
+import shutil
 
 
 if not path.exists("/var/log/worker/save/last-hour/"):
     mkdir("/var/log/worker/save/last-hour/")
-    print(f"{datetime.now()} - [INFO] - Directory created (./save/)")
+    print(f"{datetime.now()} - [INFO] - Directory created (/var/log/worker/save/)")
 
 
 class Tidy:
+    """
+    Tidy class
+    """
+
     def __init__(self) -> None:
-        self.date = datetime.now().strftime("%H")
+        self.date = str(int(datetime.now().strftime("%H")) - 1)
         self.path = "/var/log/worker/log_worker.json"
         self.path_to_save = "/var/log/worker/save/last-hour/"
         self._new_path = None
@@ -59,6 +68,24 @@ class Tidy:
             dump({}, file)
 
 
+def move_files(path_to_save: str) -> None:
+    """
+    Move files to another directory and create archive
+    """
+
+    date = datetime.now().strftime("%Y-%m-%d")
+
+    dir_name = "/var/log/worker/save/" + date + "/"
+
+    shutil.make_archive(date, "zip", "/var/log/worker/", path_to_save)
+
+    rename(date + ".zip", "/var/log/worker/save/" + date + ".zip")
+
+    for file in listdir(path_to_save):
+        remove(path_to_save + file)
+
+    print(f"{datetime.now()} - [INFO] - Archive created ({dir_name})")
+
 def main():
     """
     Main function
@@ -82,6 +109,8 @@ def main():
     else:
         print(f"{datetime.now()} - [ERROR] - File not found ({tidy.path})")
 
+    if tidy.date == "22":
+        move_files(tidy.path_to_save)
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,7 @@
+"""
+Worker for monitoring, collect data and write in log file (./log_worker.json)
+"""
+
 from json import load, dump
 from os import path
 from enum import Enum
