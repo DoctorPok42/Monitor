@@ -63,8 +63,8 @@ else
   echo "Script is not running with cron"
   echo "Creating cron task"
   crontab -l > mycron
-  echo "* * * * * python3 /var/log/worker/main.py >> /var/log/worker/log.log 2>/var/log/worker/error.log" >> mycron
-  echo "59 * * * * python3 /var/log/worker/tidy_file.py >> /var/log/worker/log.log 2>/var/log/worker/error.log" >> mycron
+  echo "* * * * * python3 /var/log/worker/main.py >> /var/log/worker/log.log 2>> /var/log/worker/error.log" >> mycron
+  echo "59 * * * * python3 /var/log/worker/tidy_file.py >> /var/log/worker/log.log 2>> /var/log/worker/error.log" >> mycron
   crontab mycron
   rm mycron
   crontab -l

@@ -3,16 +3,16 @@ from os import path, mkdir
 from datetime import datetime
 
 
-if not path.exists("./save/last-hour/"):
-    mkdir("./save/last-hour/")
+if not path.exists("/var/log/worker/save/last-hour/"):
+    mkdir("/var/log/worker/save/last-hour/")
     print(f"{datetime.now()} - [INFO] - Directory created (./save/)")
 
 
 class Tidy:
     def __init__(self) -> None:
         self.date = datetime.now().strftime("%H")
-        self.path = "./log_worker.json"
-        self.path_to_save = "./save/last-hour/"
+        self.path = "/var/log/worker/log_worker.json"
+        self.path_to_save = "/var/log/worker/save/last-hour/"
         self._new_path = None
 
     def check(self, path_to_test: str) -> bool:

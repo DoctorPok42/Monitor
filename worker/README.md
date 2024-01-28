@@ -63,8 +63,8 @@ sudo crontab -e
 Then add this line at the end of the file:
 
 ```bash
-* * * * * python3 /var/log/worker/main.py >> /var/log/worker/log.log 2>/var/log/worker/error.log
-59 * * * * python3 /var/log/worker/tidy_file.py >> /var/log/worker/log.log 2>/var/log/worker/error.log
+* * * * * python3 /var/log/worker/main.py >> /var/log/worker/log.log 2>> /var/log/worker/error.log
+59 * * * * python3 /var/log/worker/tidy_file.py >> /var/log/worker/log.log 2>> /var/log/worker/error.log
 ```
 
 ## Logs
