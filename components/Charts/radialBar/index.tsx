@@ -9,7 +9,7 @@ interface radialBarProps {
     multiple: boolean;
 }
 
-const radialBar = ({ title, titleColor = "#fff", data, multiple }: radialBarProps) => {
+const RadialBar = ({ title, titleColor = "#fff", data, multiple }: radialBarProps) => {
     const [dataSample2, setDataSample2] = useState({
     options: {
       chart: {
@@ -111,4 +111,4 @@ const radialBar = ({ title, titleColor = "#fff", data, multiple }: radialBarProp
   );
 };
 
-export default radialBar;
+export default RadialBar;

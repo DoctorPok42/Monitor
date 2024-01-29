@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Header, SideBar } from "../components";
 
-export const Home = () => {
+export const Chart = () => {
   const [newDate, setNewDate] = useState<string>(new Date().toLocaleDateString("fr-FR", {
       day: "numeric",
       month: "numeric",
@@ -16,4 +16,4 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export default Chart;

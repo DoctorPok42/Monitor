@@ -1,25 +1,47 @@
 import router from "next/router";
-import { Button, Header } from "../components";
+import { Button } from "../components";
 import {
   faMicrochip,
   faServer,
-  faChartSimple,
+  // faChartSimple,
   faCircleHalfStroke,
+  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {
-
   const handleOnClick = (args: string) => {
     router.push(args);
   }
 
+  const allButtons = [
+    {
+      imgSrc: faMicrochip,
+      link: '/cpu',
+    },
+    {
+      imgSrc: faServer,
+      link: '/server',
+    },
+    // {
+    //   imgSrc: faChartSimple,
+    //   link: '/chart',
+    // },
+    {
+      imgSrc: faCircleHalfStroke,
+      link: '/circle',
+    },
+    {
+      imgSrc: faGear,
+      link: '/settings',
+    },
+  ]
+
   return (
     <>
       <div className="chooseButton">
-        <Button imgSrc={faMicrochip} textColor="#fff" onClick={() => handleOnClick('/cpu')} />
-        <Button imgSrc={faServer} textColor="#fff" onClick={() => handleOnClick('/server')} />
-        <Button imgSrc={faChartSimple} textColor="#fff" onClick={() => handleOnClick('/chart')} />
-        <Button imgSrc={faCircleHalfStroke} textColor="#fff" onClick={() => handleOnClick('/circle')} />
+        {allButtons.map((button, index) => (
+          <Button key={index} imgSrc={button.imgSrc} textColor="#fff" onClick={() => handleOnClick(button.link)} />
+        ))}
       </div>
     </>
   );
