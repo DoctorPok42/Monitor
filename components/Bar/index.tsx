@@ -26,7 +26,7 @@ const Bar = ({ title, data, use, maxValue }: BarProps) => {
                 clearInterval(timer);
             }
         }, 10);
-    }, [use]);
+    }, [use, maxValue, data]);
 
     return (
         <>

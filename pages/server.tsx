@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { SideBar, Bar } from "../components";
-import { getFiles, getServerInfos} from "../utils/functions";
 import { Header } from "../components/";
+import { io } from "socket.io-client";
+import dotenv from 'dotenv';
 
-export const Home = () => {
+export const Server = ({ SERVER_URL }: any) => {
+  const [connected, setConnected] = useState<boolean>(false);
   const [fileData, setFileData] = useState<any>([{
     size: 1,
     used: 0,
@@ -36,12 +38,42 @@ export const Home = () => {
     return `${days} days, ${hours} hours and ${minutes} minutes`;
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getFiles(setFileData);
-      getServerInfos(setServerInfos);
+
+  const connectToSocket = () => {
+    if (connected) return;
+    const socket = io(SERVER_URL, { transports: ["websocket"] });
+
+    socket.on("connect", () => {
+      console.log("Connected to server!");
+      setConnected(true);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server!");
+    });
+
+    setInterval(async () => {
+      socket.emit("getServerInfos");
+      console.log("getServerInfos");
     }, 1000);
-    return () => clearInterval(interval);
+
+    socket.on("serverInfos", (data: any) => {
+      console.log(data);
+      setServerInfos(data.serverInfos);
+
+      setFileData(data.files.map((item: any) => {
+        return {
+          name: item.fs,
+          size: item.size / 1000000000,
+          used: item.used / 1000000000,
+          use: item.use,
+        };
+      }));
+    });
+  }
+
+  useEffect(() => {
+    connectToSocket();
   }, []);
 
   return (
@@ -106,9 +138,9 @@ export const Home = () => {
 
       <div className="StorageBar">
       {
-        fileData && fileData.map((data: any) => {
+        fileData && fileData.map((data: any, index: number) => {
           return (
-            <Bar title={data.name} data={data.used} use={data.use} maxValue={data.size} />
+            <Bar key={index} title={data.name} data={data.used} use={data.use} maxValue={data.size} />
           )
         })
       }
@@ -117,4 +149,13 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export async function getServerSideProps() {
+  dotenv.config();
+  return {
+    props: {
+      SERVER_URL: process.env.SERVER_URL,
+    }
+  };
+}
+
+export default Server;

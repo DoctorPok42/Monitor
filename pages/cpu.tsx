@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { SideBar, RadialBar, CoresTemp, Column, Area, Header, Pie } from "../components";
-import { getCache, getTemp, getSpeed, getProcess } from "../utils/functions";
+import { io } from "socket.io-client";
+import dotenv from 'dotenv';
 
-export const Home = () => {
+export const Cpu = ({ SERVER_URL }: any) => {
+  const [connected, setConnected] = useState<boolean>(false);
   const [bidData, setBidData] = useState<any>([]);
   const [cpuState, setCpuState] = useState<any>({
     series: [0],
@@ -39,14 +41,52 @@ export const Home = () => {
       year: "numeric"
   }));
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getCache(setCache);
-      getTemp(setCpuState);
-      getSpeed(setBidData, setCpuSpeed);
-      getProcess(setProcess);
+  const connectToSocket = () => {
+    if (connected) return;
+    const socket = io(`${SERVER_URL}`, { transports: ["websocket"] });
+
+    socket.on("connect", () => {
+      console.log("Connected to server!");
+      setConnected(true);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server!");
+    });
+
+    setInterval(async () => {
+      socket.emit("getCPUStates");
     }, 1000);
-    return () => clearInterval(interval);
+
+    socket.on("getCPUStates", (data: any) => {
+      const value = Object.values(data.cache);
+      const time = Object.keys(data.cache);
+      setCache({
+        value,
+        time
+      });
+
+      setCpuSpeed([{value: data.speed.avg * 10}, {value: data.speed.min * 10}, {value: data.speed.max * 10}]);
+      const speed = data.cpu.speed;
+      let newTime = new Date().toLocaleTimeString();
+      newTime = newTime.split(":")[0] + "h" + newTime.split(":")[1] + ":" + newTime.split(":")[2].split(" ")[0];
+      setBidData((prev: any) => [...prev, { speed, time: newTime }]);
+
+      setProcess([{
+          value: parseFloat(data.load.currentLoadUser.toFixed(2)),
+          label: "User",
+        },
+        {
+          value: parseFloat(data.load.currentLoadSystem.toFixed(2)),
+          label: "System",
+      }]);
+
+      setCpuState({series: [data.temps[0].main], cores: data.temps[0].cores});
+    });
+  }
+
+  useEffect(() => {
+    connectToSocket();
   }, []);
 
   useEffect(() => {
@@ -115,4 +155,13 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export async function getServerSideProps() {
+  dotenv.config();
+  return {
+    props: {
+      SERVER_URL: process.env.SERVER_URL,
+    }
+  };
+}
+
+export default Cpu;
