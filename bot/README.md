@@ -2,16 +2,16 @@
 
 ## Description
 
-Tanks to [Discord.js v14 Bot Template](https://github.com/MericcaN41/discordjs-v14-template-ts) for the base of this bot.
+Thanks to [Discord.js v14 Bot Template](https://github.com/MericcaN41/discordjs-v14-template-ts) for the base of this bot.
 
 This bot is used to monitor the server's cpu, memory, disk usage and network ports. It will send the stats every minute in the same embed. If the critical level is reached, the bot will mention the role or user you set.
 
-He use [Socket.io](https://socket.io/) to get the stats of the [server](../socket-server/) and [MongoDB](https://www.mongodb.com/) to store the settings of the bot for each server.
+It uses [Socket.io](https://socket.io/) to get the stats of the [server](../socket-server/) and [MongoDB](https://www.mongodb.com/) to store the settings of the bot for each server.
 
 ## Features
 
 * 📊 **CPU, Memory and Disk usage stats.**
-* 🕛 **Minutely updated the stats of the server in the same embed.**
+* 🕛 **Server stats updated in the same embed every minute.**
 * 🔥 **You can set the critical level of cpu, memory and disk usage.** (By default it's set to 80%)
 * 🏴 **If the critical level is reached, the bot will mention the role or user you set.**
 * 💪 **You can add the bot in multiple servers (hosted on the same machine) and set different settings for each server.**
@@ -26,7 +26,7 @@ He use [Socket.io](https://socket.io/) to get the stats of the [server](../socke
 
 ## Installation, Build and Run
 
-1) Clone the repository then change the `.env.example` file name to `.env` and fill the values with your own. The `.env` file should look like this:
+1) Copy the bot folder then change the `.env.example` file name to `.env` and fill the values with your own. The `.env` file should look like this:
 
 ```js
 TOKEN=YOUR_DISCORD_BOT_TOKEN
