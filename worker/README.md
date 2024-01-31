@@ -4,12 +4,12 @@
 
 **This script is the base of this project!**
 
-He is start by a cron job every minute and he will log the stats of the server in the file `/var/log/worker/log_worker.json`.
+The script is exectued by a cron job every minute and it will log the stats of the server in the file `/var/log/worker/log_worker.json`.
 
 ## Features
 
-* 📊 **Log of CPU, Memory and Disk usage.** (in percent)
-* 🔀 **Log of Network ports (Open or Close).** (based on config file `/var/log/worker/conf.json`)
+* 📊 **CPU, Memory and Disk usage logs.** (in percent)
+* 🔀 **Network ports (Open or Close) logs.** (based on config file `/var/log/worker/conf.json`)
 
 Example of log file:
 
@@ -54,7 +54,7 @@ You can change the configuration of the ports to check in the file `/var/log/wor
 
 ## Cron job
 
-If by any way, you delete the cron job, you can recreate it by executing the following command in your terminal:
+If you accidentally delete the cron job, you can recreate it by executing the following command in your terminal:
 
 ```bash
 sudo crontab -e
