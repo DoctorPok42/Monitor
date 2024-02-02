@@ -51,6 +51,16 @@ git clone git@github.com:DoctorPok42/Monitor.git
 
   * [ ] Add graphs to the stats embed.
 
+* **Bot, Website and WebSocket Server**:
+
+  * [ ] Add dockerization.
+
+* **Website**:
+
+  * [ ] Add a page to see the logs of the worker.
+
+  * [ ] Fill the website with more parameters.
+
 ## License
 
 [MIT](https://github.com/DoctorPok42/Monitor/blob/main/LICENSE)
