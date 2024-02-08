@@ -1,6 +1,6 @@
 <div align="center">
     <h1 style="font-size: 50px; font-weight: bold; margin: 0px; padding: 0px;"
-    >Monitor <img src="./public/favicon.ico" width="50px" height="50px"></h1>
+    >Monitor <img src="./src/public/favicon.ico" width="50px" height="50px"></h1>
 </div>
 
 ## Description
