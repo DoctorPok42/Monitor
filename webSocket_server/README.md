@@ -41,5 +41,5 @@ npm install
 4) Run the server by running the following command in your terminal:
 
 ```js
-node server.js
+node server.mjs
 ```
